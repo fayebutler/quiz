@@ -1,0 +1,25 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font: 13px Helvetica, Arial;
+}
+.content {
+    margin:50px auto;
+    max-width:800px;
+}
+.button {
+    margin: 50px;
+    padding: 50px;
+    text-align: center;
+    background-color:#f8f8f8;
+    cursor:pointer;
+    border-radius: 5px;
+    border:1px solid rgb(64, 64, 64);
+}
+.button:hover {
+    background-color:white;
+}

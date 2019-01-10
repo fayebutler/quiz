@@ -1,22 +1,8 @@
 
-    templates/
 
-        index.html
-        master.html
-        login.html
-        end.html
-        
-    static/
-        
-        styles.css
-        images/
-        
-  
-  
+To do :
 
-template language?
-
-css precompiler? or framework?
-
-js framework?
+1. Add login page
+2. Set up server to have knowledge of what question/what answer etc
+3. Style it up 
 

@@ -32,6 +32,12 @@ nextApp.prepare().then(() => {
     return nextHandler(req, res)
   });
 
+  app.get('question/:id', (req, res) => {
+    const actualPage = '/question';
+    const queryParams = { title: req.params.id };
+    nextApp.render(req, res, actualPage, queryParams)
+  });
+
   http.listen(3000, (err) => {
     if (err) throw err
     console.log('> Ready on http://localhost:3000')

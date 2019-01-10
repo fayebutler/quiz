@@ -1,5 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
+import fetch from 'isomorphic-unfetch'
 
 import styles from '../styles/styles.scss';
 
@@ -21,33 +22,24 @@ class Button extends React.Component{
 class Quiz extends React.Component {
     state = {
         socket: io('http://localhost:3000'),
-        question: null
     };
-
-    constructor(props) {
-        super(props);
-        this.state.socket.on('question', (question) => {
-            console.log("GOT QUESTION ", question);
-            this.setState({question: question});
-        })
-    }
 
     buttonClick = (e, id) => {
         this.state.socket.emit('click', id);
     };
 
     renderButtons() {
-        return this.state.question.answers.map((answer, id) => {
+        return this.props.question.answers.map((answer, id) => {
                 return <Button key={id} id={id} handleClick={(e) => this.buttonClick(e, id)} message={answer}/>
             }
         );
     }
 
     render() {
-        if(this.state.question) {
+        if(this.props.question) {
             return (
                 <div>
-                    <h2>{this.state.question.question}</h2>
+                    <h2>{this.props.question.question}</h2>
                     <div>
                         {this.renderButtons()}
                     </div>
@@ -63,6 +55,14 @@ class Quiz extends React.Component {
     }
 }
 
-export default () => (
-    <Quiz />
-)
+Quiz.getInitialProps = async function(context) {
+    const { id } = context.query;
+    const res = await fetch(`http://localhost:3000/api/${id}`);
+    const data = await res.json();
+
+    return {
+        question: data
+    }
+}
+
+export default Quiz

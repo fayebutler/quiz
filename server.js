@@ -28,18 +28,26 @@ io.on('connection', function(socket){
 
 nextApp.prepare().then(() => {
 
-  app.get('*', (req, res) => {
-    return nextHandler(req, res)
-  });
+    app.get('/question/:id', (req, res) => {
+        console.log("QUESTIONS ", req.params);
+        const actualPage = '/question';
+        const queryParams = { id: req.params.id };
+        nextApp.render(req, res, actualPage, queryParams)
+    });
 
-  app.get('question/:id', (req, res) => {
-    const actualPage = '/question';
-    const queryParams = { title: req.params.id };
-    nextApp.render(req, res, actualPage, queryParams)
-  });
+    app.get('/api/:id', (req, res) => {
+        console.log("API ", req.params);
+        const question = questions[req.params.id];
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(question));
+    });
 
-  http.listen(3000, (err) => {
-    if (err) throw err
-    console.log('> Ready on http://localhost:3000')
-  })
+    app.get('*', (req, res) => {
+        return nextHandler(req, res)
+    });
+
+    http.listen(3000, (err) => {
+        if (err) throw err
+        console.log('> Ready on http://localhost:3000')
+    })
 });

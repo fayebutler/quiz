@@ -7,6 +7,8 @@ const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const nextHandler = nextApp.getRequestHandler();
 
+const questions = require('./questions.json');
+
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function(){
@@ -15,13 +17,15 @@ io.on('connection', function(socket){
 
   socket.on('click', function(num) {
       console.log("chose ", num);
+      io.emit('click', num);
+  });
+
+  socket.on('start', function(){
+    io.emit('question', questions[0]);
   })
 });
 
 nextApp.prepare().then(() => {
-  // app.get('/messages', (req, res) => {
-  //   res.json(messages)
-  // })
 
   app.get('*', (req, res) => {
     return nextHandler(req, res)
@@ -32,15 +36,3 @@ nextApp.prepare().then(() => {
     console.log('> Ready on http://localhost:3000')
   })
 });
-
-// app.get('/', function(req, res){
-//   res.sendFile(__dirname + '/templates/index.html');
-// });
-//
-// app.get('/master', function(req, res){
-//   res.sendFile(__dirname + '/templates/master.html');
-// });
-// http.listen(3000, function(){
-//   console.log('listening on *:3000');
-// });
-

@@ -9,4 +9,4 @@ To do :
 
 
 Needs to be same socket from login to questions -- need some way to pass? 
-create a controller component? 
+create a controller component? Potentitally use REDUXX 

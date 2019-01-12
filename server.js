@@ -10,11 +10,16 @@ const nextHandler = nextApp.getRequestHandler();
 const questions = require('./questions.json');
 const constants = require('./constants');
 
+const QuizMaster = require('./quiz');
+
 console.log("CONSTANTS ", constants);
 console.log("EVENTS", constants.EVENTS);
 
 var numPlayers = 0;
 let num = 0;
+
+let quiz = new QuizMaster(questions);
+
 
 io.on('connection', function(socket){
   console.log('a user connected');
@@ -26,6 +31,7 @@ io.on('connection', function(socket){
     console.log("player joined", name);
     socket.name = name;
     numPlayers++;
+    quiz.addPlayer(name);
     // io.to('master').emit(EVENTS.JOIN, {name: name});
     io.emit(constants.EVENTS.JOIN, {name: name});
   });
@@ -38,32 +44,40 @@ io.on('connection', function(socket){
   socket.on(constants.EVENTS.SELECT_ANSWER, function(num) {
       console.log("chose ", num);
       console.log("SOCKET NAME ", socket.name);
+      quiz.updatePlayer(socket.name, num)
       // io.to('master').emit(EVENTS.SELECT_ANSWER, {'num': num, 'name': socket.name});
       io.emit(constants.EVENTS.SELECT_ANSWER, {'num': num, 'name': socket.name});
   });
 
   socket.on(constants.EVENTS.START, function(){
     console.log("start game");
-    io.emit(constants.EVENTS.NEXT_QUESTION, {'question_num': num});
+    let question = quiz.getCurrentQuestion();
+    io.emit(constants.EVENTS.NEXT_QUESTION, question);
     num++;
+    let cont = quiz.nextQuestion();
+    console.log("THE PLAYER ", quiz.players);
+    if(!cont) {
+      console.log("END");
+    }
+
   })
 });
 
 nextApp.prepare().then(() => {
 
-    app.get('/question/:id', (req, res) => {
-        console.log("QUESTIONS ", req.params, req.query);
-        const actualPage = '/question';
-        const queryParams = { id: req.params.id };
-        nextApp.render(req, res, actualPage, queryParams)
-    });
-
-    app.get('/api/:id', (req, res) => {
-        console.log("API ", req.params);
-        const question = questions[req.params.id];
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(question));
-    });
+    // app.get('/question/:id', (req, res) => {
+    //     console.log("QUESTIONS ", req.params, req.query);
+    //     const actualPage = '/question';
+    //     const queryParams = { id: req.params.id };
+    //     nextApp.render(req, res, actualPage, queryParams)
+    // });
+    //
+    // app.get('/api/:id', (req, res) => {
+    //     console.log("API ", req.params);
+    //     const question = questions[req.params.id];
+    //     res.setHeader('Content-Type', 'application/json');
+    //     res.send(JSON.stringify(question));
+    // });
 
     app.get('*', (req, res) => {
         return nextHandler(req, res)

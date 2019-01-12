@@ -9,7 +9,6 @@ class Master extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("PROPS ", this.props);
         this.props.socket.emit(EVENTS.MASTER_JOIN);
         this.props.socket.on(EVENTS.JOIN, (profile) => {
           console.log("someone joined ", profile);
@@ -20,7 +19,6 @@ class Master extends React.Component {
     }
 
     start = () => {
-      console.log("EMIT START");
         this.props.socket.emit('start');
     };
 

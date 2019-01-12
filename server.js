@@ -8,7 +8,13 @@ const nextApp = next({ dev });
 const nextHandler = nextApp.getRequestHandler();
 
 const questions = require('./questions.json');
+const constants = require('./constants');
 
+console.log("CONSTANTS ", constants);
+console.log("EVENTS", constants.EVENTS);
+
+var numPlayers = 0;
+let num = 0;
 
 io.on('connection', function(socket){
   console.log('a user connected');
@@ -16,20 +22,37 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
 
-  socket.on('click', function(num) {
-      console.log("chose ", num);
-      io.emit('click', num);
+  socket.on(constants.EVENTS.JOIN, function(name) {
+    console.log("player joined", name);
+    socket.name = name;
+    numPlayers++;
+    // io.to('master').emit(EVENTS.JOIN, {name: name});
+    io.emit(constants.EVENTS.JOIN, {name: name});
   });
 
-  socket.on('start', function(){
-    io.emit('question', questions[0]);
+  socket.on(constants.EVENTS.MASTER_JOIN, function() {
+    // socket.join('master');
+    socket.name = 'master';
+  })
+
+  socket.on(constants.EVENTS.SELECT_ANSWER, function(num) {
+      console.log("chose ", num);
+      console.log("SOCKET NAME ", socket.name);
+      // io.to('master').emit(EVENTS.SELECT_ANSWER, {'num': num, 'name': socket.name});
+      io.emit(constants.EVENTS.SELECT_ANSWER, {'num': num, 'name': socket.name});
+  });
+
+  socket.on(constants.EVENTS.START, function(){
+    console.log("start game");
+    io.emit(constants.EVENTS.NEXT_QUESTION, {'question_num': num});
+    num++;
   })
 });
 
 nextApp.prepare().then(() => {
 
     app.get('/question/:id', (req, res) => {
-        console.log("QUESTIONS ", req.params);
+        console.log("QUESTIONS ", req.params, req.query);
         const actualPage = '/question';
         const queryParams = { id: req.params.id };
         nextApp.render(req, res, actualPage, queryParams)

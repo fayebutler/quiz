@@ -7,6 +7,7 @@ class Quiz {
         this.players = []
     }
     addPlayer() {
+      console.log('add player');
 
     }
     getCurrentQuestion() {

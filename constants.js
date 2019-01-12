@@ -1,9 +1,15 @@
 
-export const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'http://localhost:3000';
 
-export const EVENTS = {
+const EVENTS = {
     JOIN: 'join',
     SELECT_ANSWER: 'select_answer',
-    START: 'start'
+    START: 'start',
+    MASTER_JOIN: 'master_join',
+    NEXT_QUESTION: 'next_question'
 };
 
+module.exports = {
+  EVENTS: EVENTS,
+  SERVER_URL: SERVER_URL
+};

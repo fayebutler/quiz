@@ -1,10 +1,40 @@
 import React from 'react';
-import io from 'socket.io-client';
+import { withRouter } from 'next/router'
+import { EVENTS } from '../constants'
 
 import styles from '../styles/styles.scss';
 
 
 class Login extends React.Component {
+    state = {
+      name: null
+    }
+
+    componentDidMount() {
+      console.log('mounting');
+      console.log(this.state);
+
+      this.nextQuestion = this.nextQuestion.bind(this);
+      this.props.socket.on(EVENTS.NEXT_QUESTION, this.nextQuestion)
+    }
+
+    nextQuestion(detail) {
+      console.log("next question");
+      let num = detail['question_num'];
+      console.log(this);
+      console.log(this.state);
+      console.log(num);
+      if(this.state.name) {
+        console.log("got name now push question");
+        let url = `/question/${num}?name=${this.state.name}`;
+        let as = `/question/${num}`;
+        console.log(url, as);
+        this.props.router.push(url, as)
+      }
+
+    }
+
+
 
     handleSubmit = (event) => {
         const form = event.target;
@@ -13,7 +43,6 @@ class Login extends React.Component {
           return;
         }
 
-        // Prevent the form from requesting a refresh/navigation change if the form is valid.
         event.preventDefault();
 
         const fd = new FormData(form);
@@ -22,9 +51,14 @@ class Login extends React.Component {
         for (let key of fd.keys()) {
           player[key] = fd.get(key);
         }
+        console.log(player);
 
+        this.props.socket.emit(EVENTS.JOIN, player['name'])
 
+        this.setState({name: player['name']})
+        console.log(this.state);
     };
+
     render() {
         return (
            <div>
@@ -32,9 +66,8 @@ class Login extends React.Component {
                 <input
                   type="text"
                   maxLength="32"
-                  autoComplete="fname"
-                  id="firstName"
-                  name="firstName"
+                  id="name"
+                  name="name"
                   placeholder="First name"
                   required
                 />
@@ -45,6 +78,4 @@ class Login extends React.Component {
     }
 }
 
-export default () => (
-    <Login />
-)
+export default withRouter(Login)

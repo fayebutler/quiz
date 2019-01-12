@@ -1,26 +1,27 @@
 import React from 'react';
-import io from 'socket.io-client';
+import {connect} from 'react-redux'
+import { EVENTS } from '../constants'
 
 import styles from '../styles/styles.scss';
 
 
 class Master extends React.Component {
-    state = {
-        socket: io('http://localhost:3000')
-    };
 
     constructor(props) {
         super(props);
-        this.state.socket.on('login', (profile) => {
-
+        console.log("PROPS ", this.props);
+        this.props.socket.emit(EVENTS.MASTER_JOIN);
+        this.props.socket.on(EVENTS.JOIN, (profile) => {
+          console.log("someone joined ", profile);
         });
-        this.state.socket.on('click', (num) => {
-            console.log("clicked the num ", num);
+        this.props.socket.on(EVENTS.SELECT_ANSWER, (data) => {
+            console.log("someone clicked ", data);
         });
     }
 
     start = () => {
-        this.state.socket.emit('start', '');
+      console.log("EMIT START");
+        this.props.socket.emit('start');
     };
 
     render() {
@@ -33,8 +34,4 @@ class Master extends React.Component {
     }
 }
 
-export default () => (
-    <div>
-      <Master />
-    </div>
-)
+export default Master

@@ -1,6 +1,7 @@
 import React from 'react';
-import io from 'socket.io-client';
+import { withRouter } from 'next/router'
 import fetch from 'isomorphic-unfetch'
+import { SERVER_URL, EVENTS } from '../constants'
 
 import styles from '../styles/styles.scss';
 
@@ -20,12 +21,18 @@ class Button extends React.Component{
 }
 
 class Quiz extends React.Component {
-    state = {
-        socket: io('http://localhost:3000'),
-    };
+    static async getInitialProps (context) {
+        const { id } = context.query;
+        const res = await fetch(`${SERVER_URL}/api/${id}`);
+        const data = await res.json();
+
+        return {
+            question: data
+        }
+    }
 
     buttonClick = (e, id) => {
-        this.state.socket.emit('click', id);
+        this.props.socket.emit(EVENTS.SELECT_ANSWER, {'choice_num': id, 'name': this.props.name});
     };
 
     renderButtons() {
@@ -36,6 +43,7 @@ class Quiz extends React.Component {
     }
 
     render() {
+      console.log("router " , this.props.router);
         if(this.props.question) {
             return (
                 <div>
@@ -55,14 +63,4 @@ class Quiz extends React.Component {
     }
 }
 
-Quiz.getInitialProps = async function(context) {
-    const { id } = context.query;
-    const res = await fetch(`http://localhost:3000/api/${id}`);
-    const data = await res.json();
-
-    return {
-        question: data
-    }
-}
-
-export default Quiz
+export default withRouter(Quiz);

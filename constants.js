@@ -6,7 +6,10 @@ const EVENTS = {
     SELECT_ANSWER: 'select_answer',
     START: 'start',
     MASTER_JOIN: 'master_join',
-    NEXT_QUESTION: 'next_question'
+    SEND_QUESTION: 'send_question',
+    UPDATE_QUESTION: 'update_question',
+    FINISH: "finish",
+    RESET: "reset"
 };
 
 module.exports = {

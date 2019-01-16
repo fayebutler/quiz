@@ -15,7 +15,14 @@ class Client extends React.Component {
 
     componentDidMount() {
 
-      this.props.socket.on(EVENTS.NEXT_QUESTION, this.nextQuestion)
+      this.props.socket.on(EVENTS.SEND_QUESTION, this.nextQuestion)
+      this.props.socket.on(EVENTS.RESET, () => {
+        this.setState({
+          name: null,
+          question: null,
+          loggedIn: false
+        })
+      })
     }
 
     nextQuestion = (data) => {
@@ -29,12 +36,20 @@ class Client extends React.Component {
       });
     }
 
+    buttonClick = (e, id) => {
+        this.props.socket.emit(EVENTS.SELECT_ANSWER, id);
+        this.setState({
+          question: null
+        })
+    };
+
+
     render() {
         return (
            <div>
               { !this.state.loggedIn ?
                   <Login handleLogin={this.handleLogin} socket={this.props.socket}/>
-                  : <Question data={this.state.question} socket={this.props.socket}/>
+                  : <Question data={this.state.question} buttonClick={this.buttonClick}/>
                }
            </div>
         );

@@ -42,8 +42,16 @@ class QuizMaster {
 
     checkAnswer(ansId) {
         let question = this.questions[this.currentQuestionNum];
+        console.log("Questions ", this.questions);
+        console.log("current question ", this.currentQuestionNum);
         console.log("in check answer ", question);
         return question['correct'] === ansId;
+    }
+
+    reset() {
+      //reset
+      this.currentQuestionNum = 0;
+      this.players = [];
     }
 }
 

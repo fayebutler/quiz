@@ -52,14 +52,24 @@ io.on('connection', function(socket){
   socket.on(constants.EVENTS.START, function(){
     console.log("start game");
     let question = quiz.getCurrentQuestion();
-    io.emit(constants.EVENTS.NEXT_QUESTION, question);
-    num++;
-    let cont = quiz.nextQuestion();
-    console.log("THE PLAYER ", quiz.players);
-    if(!cont) {
-      console.log("END");
-    }
+    io.emit(constants.EVENTS.SEND_QUESTION, question);
+  })
 
+  socket.on(constants.EVENTS.RESET, function(){
+    quiz.reset();
+    io.emit(constants.EVENTS.RESET);
+  })
+
+
+  socket.on(constants.EVENTS.UPDATE_QUESTION, function() {
+    let continuequiz = quiz.nextQuestion();
+    if(continuequiz) {
+      io.emit(constants.EVENTS.SEND_QUESTION, quiz.getCurrentQuestion());
+    } else {
+      io.emit(constants.EVENTS.FINISH, quiz.players);
+      quiz.reset();
+      console.log("okayers ", quiz.players);
+    }
   })
 });
 

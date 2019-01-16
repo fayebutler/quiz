@@ -20,13 +20,9 @@ class Button extends React.Component{
 
 class Quiz extends React.Component {
 
-    buttonClick = (e, id) => {
-        this.props.socket.emit(EVENTS.SELECT_ANSWER, id);
-    };
-
     renderButtons() {
         return this.props.data.answers.map((answer, id) => {
-                return <Button key={id} id={id} handleClick={(e) => this.buttonClick(e, id)} message={answer}/>
+                return <Button key={id} id={id} handleClick={(e) => this.props.buttonClick(e, id)} message={answer}/>
             }
         );
     }
@@ -44,7 +40,7 @@ class Quiz extends React.Component {
         } else {
             return (
                 <div>
-                    No question yet..
+                  Waiting for question...
                 </div>
             )
         }

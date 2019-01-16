@@ -46,7 +46,7 @@ class Client extends React.Component {
 
     render() {
         return (
-           <div>
+           <div className="content">
               { !this.state.loggedIn ?
                   <Login handleLogin={this.handleLogin} socket={this.props.socket}/>
                   : <Question data={this.state.question} buttonClick={this.buttonClick}/>

@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 body {
-    font: 13px Helvetica, Arial;
+    //font: 20px Helvetica, Arial;
 }
 .content {
     margin:50px auto;
@@ -22,4 +22,12 @@ body {
 }
 .button:hover {
     background-color:white;
+}
+
+.text-field {
+    margin: 50px;
+    padding: 50px;
+    text-align: center;
+    border-radius: 5px;
+    border:1px solid rgb(64, 64, 64);
 }

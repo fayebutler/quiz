@@ -1,9 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import { EVENTS } from '../constants'
+import { EVENTS } from '../constants';
+import Button from '../components/button';
 
 import styles from '../styles/styles.scss';
-
 
 class Master extends React.Component {
 
@@ -64,17 +63,17 @@ class Master extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="content">
                 <h1>Master</h1>
                 { !this.state.started ?
-                  <button onClick={this.start}>Start</button>
-                  : <button onClick={this.updateQuestion}>Next Question</button>
+                  <Button onClick={this.start} id="start" message="Start" />
+                  : <Button onClick={this.updateQuestion} id="next-q" message="Next Question" />
                 }
+                <Button onClick={this.reset} id="reset" message="Reset" />
                 { this.state.finished ?
                     this.renderPlayers()
                     : ''
                 }
-                <button onClick={this.reset}>Reset</button>
             </div>
         )
     }

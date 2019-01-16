@@ -1,22 +1,5 @@
 import React from 'react';
-import { SERVER_URL, EVENTS } from '../constants'
-
-import styles from '../styles/styles.scss';
-
-class Button extends React.Component{
-    static defaultProps = {
-        id: 0,
-        onClick: ()=>{}
-    };
-
-    render() {
-        return (
-            <div className="button" id={"button-" + this.props.id} onClick={this.props.handleClick}>
-                {this.props.message}
-            </div>
-        )
-    }
-}
+import Button from './button'
 
 class Quiz extends React.Component {
 

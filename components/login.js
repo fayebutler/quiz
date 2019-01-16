@@ -1,8 +1,6 @@
 import React from 'react';
 import { EVENTS } from '../constants'
 
-import styles from '../styles/styles.scss';
-
 class Login extends React.Component {
     state = {
       name: null
@@ -42,8 +40,9 @@ class Login extends React.Component {
                   name="name"
                   placeholder="First name"
                   required
+                  className="text-field"
                 />
-                <input type="submit"/>
+                <input className="button" type="submit"/>
               </form>
            </div>
         );

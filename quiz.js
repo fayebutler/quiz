@@ -6,19 +6,22 @@ class QuizMaster {
         this.currentQuestionNum = 0;
         this.players = [];
         this.questions = questions;
+        this.numQuestions = questions.length;
     }
 
     addPlayer(name) {
       console.log('add player');
       let player = {
         'name': name,
-        'num_correct': 0
+        'num_correct': 0,
+        'num_answered': 0
       };
       this.players.push(player);
     }
 
     updatePlayer(name, choice) {
       let player = this.players.find(player => player.name === name);
+      player.num_answered++;
       let correct = this.checkAnswer(choice);
       if(correct) {
         player.num_correct++;

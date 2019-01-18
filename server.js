@@ -12,12 +12,6 @@ const constants = require('./constants');
 
 const QuizMaster = require('./quiz');
 
-console.log("CONSTANTS ", constants);
-console.log("EVENTS", constants.EVENTS);
-
-var numPlayers = 0;
-let num = 0;
-
 let quiz = new QuizMaster(questions);
 
 
@@ -30,10 +24,9 @@ io.on('connection', function(socket){
   socket.on(constants.EVENTS.JOIN, function(name) {
     console.log("player joined", name);
     socket.name = name;
-    numPlayers++;
     quiz.addPlayer(name);
     // io.to('master').emit(EVENTS.JOIN, {name: name});
-    io.emit(constants.EVENTS.JOIN, {name: name});
+    io.emit(constants.EVENTS.JOIN, quiz.players);
   });
 
   socket.on(constants.EVENTS.MASTER_JOIN, function() {
@@ -42,17 +35,16 @@ io.on('connection', function(socket){
   })
 
   socket.on(constants.EVENTS.SELECT_ANSWER, function(num) {
-      console.log("chose ", num);
-      console.log("SOCKET NAME ", socket.name);
       quiz.updatePlayer(socket.name, num)
       // io.to('master').emit(EVENTS.SELECT_ANSWER, {'num': num, 'name': socket.name});
       io.emit(constants.EVENTS.SELECT_ANSWER, {'num': num, 'name': socket.name});
+      io.emit(constants.EVENTS.MASTER_UPDATE, {'players': quiz.players, 'currentQuestion': quiz.currentQuestionNum, 'totalQuestions': quiz.numQuestions});
   });
 
   socket.on(constants.EVENTS.START, function(){
-    console.log("start game");
     let question = quiz.getCurrentQuestion();
     io.emit(constants.EVENTS.SEND_QUESTION, question);
+    io.emit(constants.EVENTS.MASTER_UPDATE, {'players': quiz.players, 'currentQuestion': quiz.currentQuestionNum, 'totalQuestions': quiz.numQuestions});
   })
 
   socket.on(constants.EVENTS.RESET, function(){
@@ -65,10 +57,10 @@ io.on('connection', function(socket){
     let continuequiz = quiz.nextQuestion();
     if(continuequiz) {
       io.emit(constants.EVENTS.SEND_QUESTION, quiz.getCurrentQuestion());
+      io.emit(constants.EVENTS.MASTER_UPDATE, {'players': quiz.players, 'currentQuestion': quiz.currentQuestionNum, 'totalQuestions': quiz.numQuestions});
     } else {
       io.emit(constants.EVENTS.FINISH, quiz.players);
       quiz.reset();
-      console.log("okayers ", quiz.players);
     }
   })
 });

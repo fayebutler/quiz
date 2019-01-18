@@ -2,7 +2,14 @@
 
 
 1. Add styles
-2. Add to server
-3. Show whether chose correct/incorrect answers
-4. Show players on master
-5. Show how many have answers/joined
+5. Show how many have answered/joined
+6. Add images
+7. Complete writing questions
+8. Make each master create socket room
+
+
+
+
+`npm run build`
+
+`gcloud app deploy app.yaml --project=personal-sites-224416`

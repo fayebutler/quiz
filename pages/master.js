@@ -39,7 +39,6 @@ class Master extends React.Component {
 
     start = (e) => {
         this.props.socket.emit(EVENTS.START);
-        console.log(e.target);
         this.setState({
           started: true
         })
@@ -66,10 +65,10 @@ class Master extends React.Component {
             <div className="content">
                 <h1>Master</h1>
                 { !this.state.started ?
-                  <Button onClick={this.start} id="start" message="Start" />
-                  : <Button onClick={this.updateQuestion} id="next-q" message="Next Question" />
+                  <Button handleClick={this.start} id="start" message="Start" />
+                  : <Button handleClick={this.updateQuestion} id="next-q" message="Next Question" />
                 }
-                <Button onClick={this.reset} id="reset" message="Reset" />
+                <Button handleClick={this.reset} id="reset" message="Reset" />
                 { this.state.finished ?
                     this.renderPlayers()
                     : ''

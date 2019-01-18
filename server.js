@@ -73,6 +73,8 @@ io.on('connection', function(socket){
   })
 });
 
+const PORT = process.env.PORT || 8080;
+
 nextApp.prepare().then(() => {
 
     // app.get('/question/:id', (req, res) => {
@@ -93,7 +95,7 @@ nextApp.prepare().then(() => {
         return nextHandler(req, res)
     });
 
-    http.listen(3000, (err) => {
+    http.listen(PORT, (err) => {
         if (err) throw err
         console.log('> Ready on http://localhost:3000')
     })

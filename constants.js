@@ -1,5 +1,5 @@
 
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'localhost:8080';
 
 const EVENTS = {
     JOIN: 'join',

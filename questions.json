@@ -1,192 +1,33 @@
 [
   {
-    "question": "When was Alice born?",
+    "question": "What is this?",
+    "image": "/static/meerkat.jpg",
     "answers": [
-      "16th Jan 1993",
-      "15th Jan 1995",
-      "16th Jan 1994",
-      "15th Jan 1994"
-    ],
-    "correct": 2
-  },
-  {
-    "question": "Who did Alice kiss on her 18th birthday?",
-    "answers": [
-      "David Young",
-      "David Weatherill (Peak)",
-      "Tom Branigan",
-      "Connor McManus"
-    ],
-    "correct": 1
-  },
-  {
-    "question": "What mistake did Alice make in Bulgaria?",
-    "answers": [
-      "Not enough suncream!!!",
-      "Making much noise after midnight (50lv fine)",
-      "Throwing a sunbed in the pool (50lv fine)",
-      "Running naked (50lv fine)"
+      "Meerkat",
+      "Tiger",
+      "Cat",
+      "Giraffe"
     ],
     "correct": 0
   },
   {
-    "question": "How did she manage to get a free drink at The George?",
+    "question": "What was the name of the meerkat in The Lion King?",
     "answers": [
-      "Flashing George",
-      "Running naked (50lv fine)",
-      "Stole it from behind the bar",
-      "Kissing the bartender"
-    ],
-    "correct": 3
-  },
-  {
-    "question": "How many 'official team rules' has Alice broken?",
-    "image": "/static/team_rules.png",
-    "answers": [
-      "0 - she's an angel",
-      "1",
-      "All of them, that slut",
-      "2"
-    ],
-    "correct": 3
-  },
-  {
-    "question": "How many times has she broken rule no1?",
-    "answers": [
-      "0 - she's an angel",
-      "1",
-      "All of them, that slut",
-      "2"
-    ],
-    "correct": 3
-  },
-  {
-    "question": "Name those men!",
-    "answers": [
-      "Rory and Tom",
-      "Connor and Nick",
-      "Nick and Calum",
-      "Calum and Connor"
+      "Louis",
+      "Pumba",
+      "Timone",
+      "Gary"
     ],
     "correct": 2
   },
   {
-    "question": "What has Alice tried to hide under Sophie's pillows?",
+    "question": "What is a group of meerkats called?",
     "answers": [
-      "Her puke",
-      "A large vibrator",
-      "Chocolate",
-      "A ruined birthday cake"
-    ],
-    "correct": 0
-  },
-  {
-    "question": "How many of Alice's men are now gay?",
-    "answers": [
-      "0",
-      "4",
-      "1",
-      "3"
+      "a group",
+      "a mob",
+      "some meerkats",
+      "lots of meerkats"
     ],
     "correct": 1
-  },
-  {
-    "question": "How did Alice meet Alex?",
-    "answers": [
-      "Tinder",
-      "eHarmony",
-      "Plenty of Fish",
-      "OK Cupid"
-    ],
-    "correct": 2
-  },
-  {
-    "question": "Which of these men had the biggest penis?",
-    "answers": [
-      "Alex",
-      "Jamie",
-      "Tom",
-      "Josh"
-    ],
-    "correct": 1
-  },
-  {
-    "question": "Who had the most veiny?",
-    "answers": [
-      "Jamie",
-      "Nick Bell -end",
-      "Tom",
-      "Alex"
-    ],
-    "correct": 1
-  },
-  {
-    "question": "NYE 2011, how are Sophie and Faye reacting?",
-    "image": "/static/alice_bra.jpg",
-    "answers": [
-      "Terrified of Alice's imminent nakedness",
-      "Shocked at her bold colour combo",
-      "Amazed by Alice's incredible stomach and new bra",
-      "In awe as the Free the Nipple movement is born"
-    ],
-    "correct": 2
-  },
-  {
-    "question": "How many virginity's has Alice taken?",
-    "answers": [
-      "20",
-      "0",
-      "2",
-      "4"
-    ],
-    "correct": 2
-  },
-  {
-    "question": "Where did Alice take Tom's virginity?",
-    "answers": [
-      "That tent in Ben's field",
-      "Classy A41 Premiere Inn",
-      "Tom's parents bed",
-      "Tom's minty car"
-    ],
-    "correct": 1
-  },
-  {
-    "question": "Who was it who walked in on Tom and Alice?",
-    "answers": [
-      "Zoe",
-      "Jonny",
-      "Sophie",
-      "Shadie"
-    ],
-    "correct": 3
-  },
-  {
-    "question": "How did Alice describe getting with Calum Hardie?",
-    "answers": [
-      "Like a lizard",
-      "Like a washing machine",
-      "Like a prune",
-      "Like a dog"
-    ],
-    "correct": 1
-  },
-  {
-    "question": "What did Alice make Sophie do when they first met?",
-    "answers": [
-      "Sit next to her on all the rides",
-      "Down a slushie",
-      "Spend hours trying to win her a prize",
-      ""
-    ],
-    "correct": 0
-  },
-  {
-    "question": "Who do we love the most?",
-    "image": "static/princess_alice.jpg",
-    "answers": [
-      "Princess Alice!"
-    ],
-    "correct": 0
   }
 ]
